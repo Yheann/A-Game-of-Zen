@@ -1,0 +1,99 @@
+// Define variables for player and environment
+let player = {
+    health: 100,
+    energy: 100,
+    mood: "calm"
+};
+
+let environment = {
+    weather: "sunny",
+    surroundings: "serene forest"
+};
+
+// Function to interact with calming elements
+function interactWithNature() {
+    if (confirm("Do you want to take a moment to interact with the calming elements?")) {
+        player.energy += 10;
+        player.mood = "peaceful";
+        alert("You interacted with the calming elements. You feel more relaxed and peaceful.");
+    }
+}
+
+// Function to engage in peaceful activities
+function engageInMeditation() {
+    if (confirm("Do you want to take a break and engage in peaceful meditation?")) {
+        player.energy -= 20;
+        player.mood = "tranquil";
+        alert("You engaged in meditation. Your mind feels clear and tranquil.");
+    }
+}
+
+// Function to unwind and de-stress
+function unwindAndDeStress() {
+    if (confirm("Do you want to take some time to unwind and de-stress?")) {
+        player.health += 5;
+        player.mood = "balanced";
+        alert("You took time to unwind and de-stress. Your body feels more balanced and refreshed.");
+    }
+}
+
+// Main game loop
+function mainGameLoop() {
+    interactWithNature();
+    engageInMeditation();
+    unwindAndDeStress();
+    console.log("Enjoy the serenity of the Game of Zen!");
+}
+
+// Start the game
+mainGameLoop();
+
+// Additional complexity
+setInterval(() => {
+    player.energy--;
+    player.mood--;
+    if (player.energy <= 0) {
+        player.health--;
+        player.energy = 0;
+    }
+    if (player.mood <= 0) {
+        player.health--;
+        player.mood = 0;
+    }
+   if (player.health <= 0) {
+        console.log("Game over. You have run out of energy and good mood.");
+        return;
+    }
+    checkTimeAndMood();
+    console.log("Player's current status:");
+    console.log("Health: " + player.health);
+    console.log("Energy: " + player.energy);
+    console.log("Mood: " + player.mood);
+}, 1000);
+
+function checkTimeAndMood() {
+    let date = new Date();
+    let hours = date.getHours();
+    if (hours < 6 || hours > 20) {
+        player.energy -= 10;
+        player.mood = "tired";
+    } else if (hours < 12) {
+        player.mood = "happy";
+    } else if (hours < 18) {
+        player.mood = "peaceful";
+    } else {
+        player.mood = "calm";
+    }
+    console.log("Current time: " + getHoursString(hours) + ". Your mood is: " + player.mood);
+    console.log("Your energy level is: " + player.energy);
+}
+
+function getHoursString(hours) {
+    if (hours > 12) {
+        return hours - 12 + " PM";
+    } else if (hours === 12) {
+        return hours + " PM";
+    } else {
+        return hours + " AM";
+    }
+}
